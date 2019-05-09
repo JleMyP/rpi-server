@@ -1,0 +1,66 @@
+<head>
+  <title> index </title>
+  <script src="/script.js"></script>
+</head>
+<body onload="document.getElementById('key').focus();">
+  <img align=left>
+  <b id="fff"></b>
+  <script>
+    document.images[0].src="http://"+window.location.host+":8080";
+
+    var state = "stop";
+    
+    function keyCallback(e){
+      var keycode = e.keyCode?e.keyCode:e.keyChar;
+      if(e.type=="keydown" && state=="stop"){
+        switch(keycode){
+          case 38: cmd = "forward"; break;
+          case 40: cmd = "back"; break;
+          case 37: cmd = "left"; break;
+          case 39: cmd = "right"; break;
+          default: break;
+        }
+      }
+      else if(e.type=="keyup" && (state != "stop")) cmd = "stop";
+      else return false;
+      state = cmd;
+      command(cmd);
+      return false;
+    }
+
+    document.onkeydown = keyCallback;
+    document.onkeyup = keyCallback;
+  </script>
+  <center>
+  <table>
+    <tr>
+      <td></td>
+      <td>
+        <button onMouseOver="command('forward');" onMouseOut="command('stop');">
+          forward 
+        </button>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <button onMouseOver="command('left');" onMouseOut="command('stop');">
+          left
+        </button>
+      </td>
+      <td>
+        <center>
+        <button onMouseOver="command('back');" onMouseOut="command('stop');">
+          back
+        </button>
+        </center>
+      </td>
+      <td>
+        <button onMouseOver="command('right');" onMouseOut="command('stop');">
+          right
+        </button>
+      </td>
+    </tr>
+  </table>
+  </center>
+</body>
